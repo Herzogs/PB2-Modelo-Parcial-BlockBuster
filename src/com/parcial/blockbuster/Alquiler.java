@@ -13,6 +13,12 @@ public class Alquiler {
         this.nroSocio = nroSocio;
     }
 
+    public Alquiler(){
+        this.idPelicula=" ";
+        this.idConsola = " ";
+        this.nroSocio = 0;
+    };
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

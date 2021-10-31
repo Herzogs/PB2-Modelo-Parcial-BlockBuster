@@ -1,6 +1,7 @@
 package com.parcial.blockbuster;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StockConsola implements Stock<Consola> {
@@ -23,6 +24,18 @@ public class StockConsola implements Stock<Consola> {
         Boolean est = false;
         if(this.stock.containsKey(con)){
             this.stock.replace(con,this.stock.get(con)+cant);
+            est = true;
+        }
+        return est;
+    }
+
+    public Boolean agregarListadoDeJuegosAUnaConsola (Consola cons, List<Juego> lista){
+        Boolean est= false;
+        if(this.stock.containsKey(cons)){
+            Integer cant = this.stock.get(cons);
+            this.stock.remove(cons);
+            cons.setListaJuegos(lista);
+            this.stock.put(cons,cant);
             est = true;
         }
         return est;
