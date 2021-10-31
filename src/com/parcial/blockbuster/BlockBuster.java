@@ -62,7 +62,7 @@ public class BlockBuster {
         Integer cantCon = this.obtenerCantidadDeConsolasAlquilasPorNroSocio(cli.getNroSocio());
         if (cant < 3 && cantCon == 0) {
             Alquiler nuevo = new Alquiler("0000", "0000", 0);
-            if (peli != null) {
+            if (peli != null && peli.esAlquilable()) {
                 if (peli.getTipo().equals(tipoPelicula.CONDICIONADA)) {
                     if (cli.getEdad() > 18) {
                         nuevo.setIdPelicula(peli.getId());
