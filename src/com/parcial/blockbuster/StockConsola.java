@@ -28,11 +28,15 @@ public class StockConsola implements Stock<Consola> {
         return est;
     }
 
-    public Boolean decrementarEjemplarDelStock(Consola con){
+    public Boolean decrementarEjemplarDelStock(Consola con) throws StockNoDisponibleException {
         Boolean est = false;
-        if( this.stock.containsKey(con) && this.stock.get(con) > 0){
-            this.stock.replace(con, this.stock.get(con)-1);
-            est = true;
+        if( this.stock.containsKey(con)) {
+            if (this.stock.get(con) == 0)
+                throw new StockNoDisponibleException("No hay mas stock disponible");
+            else {
+                this.stock.replace(con, this.stock.get(con) - 1);
+                est = true;
+            }
         }
         return est;
     }

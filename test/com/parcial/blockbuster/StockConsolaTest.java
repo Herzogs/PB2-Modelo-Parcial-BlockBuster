@@ -42,7 +42,7 @@ public class StockConsolaTest {
     }
 
     @Test
-    public void queSeDecrementeEjemplaresAUnaConsolaQueEsteEnStock(){
+    public void queSeDecrementeEjemplaresAUnaConsolaQueEsteEnStock() throws StockNoDisponibleException{
         Consola cons = new Consola("0001",tipoConsola.NINTENDO_64);
         this.stock.agregarAlStock(cons);
         this.stock.agregarEjemplarAlStock(cons,3);
@@ -50,7 +50,7 @@ public class StockConsolaTest {
     }
 
     @Test
-    public void queSeDecrementeEjemplaresAUnaConsolaQueNoEsteEnStock(){
+    public void queSeDecrementeEjemplaresAUnaConsolaQueNoEsteEnStock() throws StockNoDisponibleException{
         Consola cons = new Consola("0001",tipoConsola.NINTENDO_64);
         Consola cons2 = new Consola("0002",tipoConsola.PLAYSTATION_3);
         this.stock.agregarAlStock(cons);
@@ -60,13 +60,21 @@ public class StockConsolaTest {
 
     @Test
     public void queSeIntenteDecrementarEjemplaresAUnaConsolaQueSiEsteEnStockPeroNoHaySuficienteStock(){
-        Consola cons = new Consola("0001",tipoConsola.NINTENDO_64);
-        this.stock.agregarAlStock(cons);
-        this.stock.agregarEjemplarAlStock(cons,3);
-        this.stock.decrementarEjemplarDelStock(cons);
-        this.stock.decrementarEjemplarDelStock(cons);
-        this.stock.decrementarEjemplarDelStock(cons);
-        Assert.assertEquals(false,this.stock.decrementarEjemplarDelStock(cons));
+        Exception myException = null;
+        try {
+            Consola cons = new Consola("0001", tipoConsola.NINTENDO_64);
+            this.stock.agregarAlStock(cons);
+            this.stock.agregarEjemplarAlStock(cons, 3);
+            this.stock.decrementarEjemplarDelStock(cons);
+            this.stock.decrementarEjemplarDelStock(cons);
+            this.stock.decrementarEjemplarDelStock(cons);
+            this.stock.decrementarEjemplarDelStock(cons);
+        }catch (StockNoDisponibleException e){
+            myException = e;
+        }finally {
+            Assert.assertEquals(StockNoDisponibleException.class,myException.getClass());
+        }
+
     }
 
     @Test

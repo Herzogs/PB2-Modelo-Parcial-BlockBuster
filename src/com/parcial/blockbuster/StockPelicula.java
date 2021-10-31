@@ -29,11 +29,15 @@ public class StockPelicula implements Stock<Pelicula> {
         return est;
     }
 
-    public Boolean decrementarEjemplarDelStock(Pelicula peli){
+    public Boolean decrementarEjemplarDelStock(Pelicula peli) throws StockNoDisponibleException{
         Boolean est = false;
-        if( this.stockPelicula.containsKey(peli) && this.stockPelicula.get(peli) > 0){
-            this.stockPelicula.replace(peli, this.stockPelicula.get(peli)-1);
-            est = true;
+        if( this.stockPelicula.containsKey(peli)){
+            if(this.stockPelicula.get(peli) == 0)
+                throw new StockNoDisponibleException("No hay suficiente stock de la pelicula");
+            else{
+                this.stockPelicula.replace(peli, this.stockPelicula.get(peli)-1);
+                est = true;
+            }
         }
         return est;
     }

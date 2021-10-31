@@ -6,7 +6,7 @@ public interface Stock <T> {
 
     Boolean agregarEjemplarAlStock(T con, Integer cant);
 
-    Boolean decrementarEjemplarDelStock(T con);
+    Boolean decrementarEjemplarDelStock(T con) throws StockNoDisponibleException;
 
     Boolean quitarDelStock(T con);
 }
